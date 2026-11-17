@@ -14,3 +14,7 @@
 .project-card[hidden]{display:none}.storyboard-thumb img{object-fit:contain;object-position:center}.detail-hero .detail-cover:has(img[src$="compass-thumbnail.svg"]){aspect-ratio:1780/1080}.detail-hero .detail-cover:has(img[src$="-cover.png"]){aspect-ratio:16/9}.preview-grid .image-button img{object-fit:contain}
 
 .gallery-heading{margin-block:32px 16px}.storyboard-cover article>h3{display:none}.storyboard-cover .image-button{display:block;width:100%}
+
+/* The Rocket Fresh artwork has transparent margins around the cover. */
+.project-thumb:has(img[src$="rocketfresh-cover.png"]){overflow:hidden;background:#d8fbd3}
+.project-thumb img[src$="rocketfresh-cover.png"]{transform:scale(1.09);transform-origin:center top}
