@@ -5,7 +5,12 @@
   function filterProjects(value) {
     currentFilter = value;
     filterButtons.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.filter === value)));
-    cards.forEach(card => { card.hidden = value !== 'all' && !card.dataset.types.split(' ').includes(value); });
+    cards.forEach(card => {
+      const storyboard = card.dataset.variant === 'storyboard';
+      card.hidden = value === 'storyboard'
+        ? !storyboard
+        : storyboard || (value !== 'all' && !card.dataset.types.split(' ').includes(value));
+    });
   }
   filterButtons.forEach(button => button.addEventListener('click', () => filterProjects(button.dataset.filter)));
   try {
