@@ -15,20 +15,24 @@
   filterButtons.forEach(button => button.addEventListener('click', () => filterProjects(button.dataset.filter)));
   try {
     const state = JSON.parse(sessionStorage.getItem('portfolio-list-state') || 'null');
-    if (state && document.querySelector('#project-list')) {
-      filterProjects(state.filter || 'all');
-      if (new URLSearchParams(location.search).has('return')) {
-        requestAnimationFrame(() => requestAnimationFrame(() => window.scrollTo({top:state.scroll || 0,behavior:'instant'})));
-      }
+    if (state && filterButtons.length && new URLSearchParams(location.search).has('return')) {
+      const filter = filterButtons.find(button => button.dataset.filter === state.filter);
+      filterProjects(filter?.dataset.filter || 'all');
+      requestAnimationFrame(() => requestAnimationFrame(() => window.scrollTo({top:state.scroll || 0,behavior:'instant'})));
     }
   } catch (_) {}
   document.querySelectorAll('a[data-project]').forEach(link => link.addEventListener('click', () => {
     try { sessionStorage.setItem('portfolio-list-state', JSON.stringify({filter:currentFilter,scroll:window.scrollY})); } catch (_) {}
   }));
-  const returnLink = document.querySelector('[data-return]');
-  if (returnLink) {
-    try { if (sessionStorage.getItem('portfolio-list-state')) returnLink.href = '../index.html?return=1#projects'; } catch (_) {}
-  }
+  document.querySelectorAll('[data-return]').forEach(link => {
+    try {
+      if (sessionStorage.getItem('portfolio-list-state')) {
+        const destination = new URL(link.href);
+        destination.searchParams.set('return', '1');
+        link.href = destination.href;
+      }
+    } catch (_) {}
+  });
   const navLinks = [...document.querySelectorAll('.nav-links a')];
   if (navLinks.length && 'IntersectionObserver' in window) {
     const groups={home:'home',guide:'resume',resume:'resume',projects:'projects','all-projects':'projects',about:'about',working:'about',career:'career',skills:'skills',tools:'skills',contact:'contact'};
