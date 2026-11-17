@@ -18,3 +18,5 @@
 /* The Rocket Fresh artwork has transparent margins around the cover. */
 .project-thumb:has(img[src$="rocketfresh-cover.png"]){overflow:hidden;background:#d8fbd3}
 .project-thumb img[src$="rocketfresh-cover.png"]{transform:scale(1.09);transform-origin:center top}
+
+.storyboard-detail-cover{aspect-ratio:16/9}.storyboard-detail-cover img{object-fit:contain}
